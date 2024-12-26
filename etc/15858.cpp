@@ -11,7 +11,7 @@ int main()
     __int128 ab = (__int128)a * b;
     long long integer_part = ab / c;
     __int128 rem = ab % c;
-    
+
     long long fractional_part = (rem * 1000000 + c / 2) / c;
 
     if (fractional_part == 1000000)
