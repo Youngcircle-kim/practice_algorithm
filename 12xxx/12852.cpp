@@ -1,46 +1,34 @@
 #include <bits/stdc++.h>
 using namespace std;
-int N, dp[1000005];
+
+int d[1000005];
+int pre[10000005];
+int n;
 
 int main()
 {
     ios_base::sync_with_stdio(0);
     cin.tie(0);
+    cin >> n;
+    for(int i = 2; i <= n; i++){
+        d[i] = d[i-1] + 1;
+        pre[i] = i-1;
 
-    cin >> N;
-    for (int i = 1; i <= N; i++)
-    {
-        dp[i] = i;
+        if(i%2 == 0 && d[i] > d[i/2] + 1){
+            d[i] = d[i/2] + 1;
+            pre[i] = i/2;
+        }
+        if(i%3 == 0 && d[i] > d[i/3] + 1) {
+            d[i] = d[i/3] + 1;
+            pre[i] = i/3;
+
+        }
     }
-    for (int i = 2; i <= N; i++)
-    {
-        if (i % 2 == 0)
-        {
-            dp[i] = min(dp[i], dp[i / 2]);
-        }
-        if (i % 3 == 0)
-        {
-            dp[i] = min(dp[i], dp[i / 3]);
-        }
-        dp[i] = min(dp[i], dp[i - 1]) + 1;
-    }
-
-    cout << dp[N] - 1 << "\n";
-
-    while (N != 0)
-    {
-        cout << N << " ";
-        if (dp[N] == dp[N - 1] + 1)
-        {
-            N = N - 1;
-        }
-        else if (N % 2 == 0 && dp[N] == dp[N / 2] + 1)
-        {
-            N = N / 2;
-        }
-        else if (N % 3 == 0 && dp[N] == dp[N / 3] + 1)
-        {
-            N = N / 3;
-        }
+    cout << d[n] << "\n";
+    int cur = n;
+    while(true) {
+        cout << cur << ' ';
+        if(cur == 1) break;
+        cur = pre[cur];
     }
 }
